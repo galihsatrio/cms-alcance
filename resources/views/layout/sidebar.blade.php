@@ -1,37 +1,29 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <img src="https://cms.alcancesolutions.com/storage/images/sidebar.png" width="60" alt="alcance">
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">St</a>
+            <a href="{{ route('dashboard')}}">AC</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">Dashboard</li>
+            <li class="menu-header">Main Menu</li>
             <li>
-                <a href="/" class="nav-link">
-                    <i class="fas fa-fire"></i>
+                <a href="{{ route('dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+                    <i class="fas fa-home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="menu-header">Master</li>
-            {{-- <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Page 1</a></li>
-                    <li><a class="nav-link" href="#">Page 2</a></li>
-                </ul>
-            </li> --}}
             <li>
-                <a href="/service" class="nav-link">
+                <a href="{{ route('service.index')}}" class="nav-link {{ Request::is('service/*') ? 'active' : '' }}">
                     <i class="far fa-user"></i>
-                    <span>Service</span>
+                    <span>Services</span>
                 </a>
             </li>
             <li>
-                <a href="/resource" class="nav-link">
-                    <i class="fas fa-th-large"></i>
-                    <span>Resource</span>
+                <a href="{{ route('resource.index')}}" class="nav-link {{ Request::is('resoruce/*') ? 'active' : '' }}">
+                    <i class="far fa-folder"></i>
+                    <span>Resources</span>
                 </a>
             </li>
         </ul>

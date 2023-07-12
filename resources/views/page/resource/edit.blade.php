@@ -4,22 +4,28 @@
 <div class="section-body">
     <div class="card">
         <div class="card-header justify-content-between d-flex">
-            <h3>Create Service</h3>
+            <h3>Edit Resource</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="/service">Service</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Create</li>
+                    <li class="breadcrumb-item"><a href="/resource">Resource</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit</li>
                 </ol>
             </nav>
         </div>
         <div class="card-body">
-            <form method="post" action="{{ route('service.store') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('resource.update', $model->id) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="content">Title</label>
-                            <input class="form-control form-control-sm" id="content" name="content" value="{{ old('content') }}" rows="5" required>
+                            <label for="title">Title</label>
+                            <input class="form-control form-control-sm" id="title" name="title" value="{{ $model->title }}" rows="5" required>
+                            <input class="form-control form-control-sm" id="img_bash" name="img_bash" value="{{ $model->image }}" rows="5" hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Content</label>
+                            <input id="content" type="hidden" name="content" value="{{ $model->content }}">
+                            <trix-editor input="content"></trix-editor>
                         </div>
                     </div>
 
@@ -30,15 +36,18 @@
                                 <div class="col-md-6">
                                     <div class="drop-zone" onclick="document.getElementById('image-input').click()">
                                         <div class="drop-zone-text">
-                                          <i class="fas fa-cloud-upload-alt"></i>
-                                          <p>Drag and drop your image here</p>
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <p>
+                                                Drag and drop your image here <br>
+                                                Image 360x250 px
+                                            </p>
                                         </div>
                                         <input type="file" name="image" id="image-input" accept="image/*" onchange="showPreview(event)" class="hidden" />
                                     </div>
                                 </div>
-                                <div class="col-md-6 text-center">
+                                <div class="col-md-6">
                                     <div id="image-preview" class="hidden bg-light text-center rounded p-2">
-                                        <img id="preview-image" class="image-thumbnail" />
+                                        <img id="preview-image" src="{{ Storage::url('images/'. $model->image) }}" class="image-thumbnail" />
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +56,7 @@
                 </div>
 
                 <div class="card-footer d-flex justify-content-end">
-                    <a href="{{ route('service.index') }}" class="btn btn-sm btn-light mr-2">
+                    <a href="{{ route('resource.index') }}" class="btn btn-sm btn-light mr-2">
                         <i class="fa fa-chevron-left"></i> &nbsp; Cancel
                     </a>
                     <button class="btn btn-sm btn-primary" type="submit">
@@ -80,17 +89,24 @@
     }
 
     .hidden {
-    display: none;
+        display: none;
     }
 </style>
 
 <script>
-    @if(session('success'))
-        Swal.fire('Success', '{{ session('success') }}', 'success');
-    @endif
+
     @if(session('error'))
         Swal.fire('Oopss', '{{ session('error') }}', 'error');
     @endif
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const previewContainer = document.getElementById('image-preview');
+        const previewImage = document.getElementById('preview-image');
+
+        if (previewImage && previewImage.src) {
+            previewContainer.classList.remove('hidden');
+        }
+    });
 
     function showPreview(event) {
         const input = event.target;
@@ -103,7 +119,7 @@
             reader.onload = function(e) {
             previewImage.src = e.target.result;
             previewContainer.classList.remove('hidden');
-        }
+            }
 
             reader.readAsDataURL(input.files[0]);
         } else {
@@ -111,6 +127,7 @@
             previewContainer.classList.add('hidden');
         }
     }
+
 </script>
 
 @endsection

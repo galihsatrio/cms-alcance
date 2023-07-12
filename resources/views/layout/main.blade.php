@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Blank Page &mdash; Stisla</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Alcance Solutions - CMS</title>
+    <link rel="icon" href="https://cms.alcancesolutions.com/storage/images/favicon.png" type="image/png">
 
-    <!-- General CSS Files -->
+    {{-- Css --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-
-    <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/trix.css') }}">
+    <script type="text/javascript" src="{{ asset('js/trix.js') }}"></script>
+
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"] {
+            display: none;
+        }
+
+        trix-editor {
+            min-height: 10em
+        }
+    </style>
 </head>
 
 <body>
   <div id="app">
     <div class="main-wrapper">
         @include('layout.navbar')
-
-      @include('layout.sidebar')
+        @include('layout.sidebar')
 
       <!-- Main Content -->
         <div class="main-content">
-            <section class="section">
-                <div class="section-header">
-                    <h1>@yield('title')</h1>
-                </div>
+            <section class="section mt-3">
                 <div class="section-body">
                     @yield('content')
                 </div>
@@ -37,7 +42,7 @@
 
         <footer class="main-footer">
             <div class="footer-left">
-                Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+                {{-- Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a> --}}
             </div>
             <div class="footer-right">
                 2.3.0
@@ -56,6 +61,9 @@
   <script src="{{ asset('js/stisla.js') }}"></script>
   <script src="{{ asset('js/scripts.js') }}"></script>
   <script src="{{ asset('js/custom.js') }}"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
+  @include('sweetalert::alert')
 
 </body>
 </html>
