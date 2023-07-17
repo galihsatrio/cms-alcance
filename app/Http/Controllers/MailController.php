@@ -22,10 +22,9 @@ class MailController extends Controller
         $email = $request->input('email');
         $name = $request->input('name');
 
-        $recipient = 'bangek3foil@gmail.com';
+        $recipient = 'contact@alcancesolutions.com';
         $content = $request->input('message');
         $subject = $name;
-
 
         try {
             Mail::raw($content, function ($message) use ($email, $name, $recipient, $subject) {
